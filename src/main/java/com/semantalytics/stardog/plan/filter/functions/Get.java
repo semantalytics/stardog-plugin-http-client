@@ -11,6 +11,8 @@ import com.google.common.hash.Hashing;
 import com.google.common.io.Files;
 import org.apache.http.client.fluent.Request;
 import org.openrdf.model.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +47,9 @@ public class Get extends AbstractFunction implements UserDefinedFunction {
         try {
             final String hash = Files.hash(file, Hashing.sha1()).toString();
             final String stardogHome = System.getenv("STARDOG_HOME");
-            destFile = new File(stardogHome + hash.substring(0, 4) + "/" + hash.substring(4,8) + "/" + hash.substring(7));
+            destFile = new File(stardogHome + "/downloads/" + hash.substring(0, 4) + "/" + hash.substring(4,8) + "/" + hash.substring(7));
+            Files.createParentDirs(destFile);
+            destFile.createNewFile();
             Files.move(file, destFile);
         } catch (IOException e) {
             throw new ExpressionEvaluationException("Unable to calculate hash of file", e);
