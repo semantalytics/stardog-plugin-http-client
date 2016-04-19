@@ -1,0 +1,15 @@
+language: java
+sudo: false
+
+cache:
+    directories:
+        - ~/.m2
+
+branches:
+    only:
+        - master
+
+script: mvn clean install -DskipTests=true
+
+jdk:
+    - oraclejdk8
