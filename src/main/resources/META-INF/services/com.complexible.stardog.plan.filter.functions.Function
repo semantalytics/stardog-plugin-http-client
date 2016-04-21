@@ -1,1 +1,2 @@
 com.semantalytics.stardog.plan.filter.functions.Get
+com.semantalytics.stardog.plan.filter.functions.Delete
